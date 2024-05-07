@@ -10,16 +10,9 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles/styles.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Blog Post</title>
   </head>
-  <script>
-    $(document).ready(function () {
-      $(".btn-one").click(function (e) {
-        $(".my-form").toggleClass("d-none d-block");
-      });
-    });
-  </script>
+
   <body>
     <h1 class="text-center">Logo</h1>
 
@@ -31,25 +24,33 @@
       </div>
     </div>
 
-    <form class="my-form container-sm text-left d-none">
+    <form
+      class="my-form container-sm text-left d-none"
+      action="/submit"
+      method="POST"
+    >
       <!-- Add title -->
       <div class="form-group my-4">
-        <label for="formGroupExampleInput">Add Title</label>
+        <label for="formTitle">Add Title</label>
         <input
           type="text"
+          name="fTitle"
           class="form-control-sm"
-          id="formGroupExampleInput"
+          id="formTitle"
           placeholder="Title"
+          required
         />
       </div>
 
       <!-- Add description -->
       <div class="form-group">
-        <label for="exampleFormControlTextarea1">Add Description</label>
+        <label for="formDescription">Add Description</label>
         <textarea
           class="form-control"
-          id="exampleFormControlTextarea1"
+          id="formDescription"
           rows="3"
+          name="fDescription"
+          required
         ></textarea>
       </div>
 
@@ -59,18 +60,53 @@
         <input
           type="file"
           class="form-control-file"
-          id="exampleFormControlFile1"
+          id="formImage"
+          name="fImage"
         />
       </div>
       <div class="container d-inline-flex justify-content-end">
-        <button type="button" class="btn btn-secondary">Submit</button>
+        <button type="submit" class="submit-button btn btn-secondary">
+          Submit
+        </button>
       </div>
     </form>
+
+    <!-- Card -->
+    <% if(locals.title) { %>
+    <div class="card-post container card my-5" style="max-width: 540px">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="..." class="img-fluid rounded-start" alt="..." />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%= title %></h5>
+            <p class="card-text"><%= description %></p>
+            <p class="card-text">
+              <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+    <ul class="posts"></ul>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".btn-one").click(function (e) {
+          $(".my-form").toggleClass("d-none d-block");
+        });
+      });
+    </script>
   </body>
 </html>
