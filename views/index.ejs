@@ -64,6 +64,8 @@
           name="fImage"
         />
       </div>
+
+      <!-- Submit button -->
       <div class="container d-inline-flex justify-content-end">
         <button type="submit" class="submit-button btn btn-secondary">
           Submit
@@ -72,16 +74,31 @@
     </form>
 
     <!-- Card -->
-    <% if(locals.title) { %>
-    <div class="card-post container card my-5" style="max-width: 540px">
+    <% if(locals.data) { %> <% locals.data.forEach(element => { %>
+    <div
+      class="container row justify-content-center card-container"
+      data-id="id"
+    >
+      <!-- Delete button -->
+      <div class="col-sm-11"></div>
+      <div class="col-sm-1 mt-3">
+        <button
+          type="button"
+          name="delButton"
+          class="btn-close"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+    <div class="card-post container card my-3" style="max-width: 540px">
       <div class="row g-0">
         <div class="col-md-4">
           <img src="..." class="img-fluid rounded-start" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title"><%= title %></h5>
-            <p class="card-text"><%= description %></p>
+            <h5 class="card-title"><%= element.title %></h5>
+            <p class="card-text"><%= element.description %></p>
             <p class="card-text">
               <small class="text-body-secondary">Last updated 3 mins ago</small>
             </p>
@@ -89,7 +106,7 @@
         </div>
       </div>
     </div>
-    <% } %>
+    <% }); %> <% } %>
 
     <ul class="posts"></ul>
 
@@ -105,6 +122,23 @@
       $(document).ready(function () {
         $(".btn-one").click(function (e) {
           $(".my-form").toggleClass("d-none d-block");
+
+          // Send a HTTP request (DELETE) via a click event
+
+          $(".btn-close").click(function () {
+            const cardContainer = this.closest(".card-container");
+            const cardId = cardContainer.getAttribute("data-id");
+            fetch(`/delete/${cardId}`, {
+              method: "DELETE",
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  cardContainer.nextElementSibling.remove(); // Remove the card content
+                  cardContainer.remove(); // Remove the card container
+                }
+              });
+          });
         });
       });
     </script>
