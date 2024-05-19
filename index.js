@@ -9,27 +9,32 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-app.post("/submit", (req, res, next) => {
+let storedData = [];
+
+app.post("/submit", (req, res) => {
   let titleValue = req.body.fTitle;
   let descValue = req.body.fDescription;
 
-  let storedData = [];
   let userData = req.body;
 
-  storedData.push(userData);
-
-  res.send("Data stored successfully!");
-  next();
+  storedData.push({
+    title: userData.fTitle,
+    description: userData.fDescription,
+  });
 
   res.render("index.ejs", {
     title: titleValue,
     description: descValue,
+    data: storedData,
   });
 });
 
+app.delete("/");
+
 app.get("/", (req, res) => {
-  // res.json(storedData);
-  res.render("index.ejs");
+  res.render("index.ejs", {
+    data: storedData,
+  });
 });
 
 app.listen(port, () => {
