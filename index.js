@@ -29,7 +29,15 @@ app.post("/submit", (req, res) => {
   });
 });
 
-app.delete("/");
+app.delete("/delete/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (id >= 0 && id < storedData.length) {
+    storedData.splice(id, 1);
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
+  }
+});
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
