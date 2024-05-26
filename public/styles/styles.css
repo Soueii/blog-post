@@ -63,3 +63,12 @@ div[class*="box"] {
   opacity: 0;
   transform: scale(0.1, 1);
 }
+
+.image-size {
+  height: 20px;
+  width: 20px;
+}
+
+.image-size:hover {
+  cursor: pointer;
+}
