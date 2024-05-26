@@ -80,8 +80,10 @@
         class="container row justify-content-center card-container"
         data-id="<%= index %>"
       >
-        <!-- Delete button -->
-        <div class="col-sm-11"></div>
+        <!-- Delete/Update button -->
+        <div class="col-sm-11 d-flex p-0 mt-3 justify-content-end">
+          <img src="images/pen.png" class="image-size" alt="pen icon" />
+        </div>
         <div class="col-sm-1 mt-3">
           <button
             type="button"
@@ -122,10 +124,9 @@
       $(document).ready(function () {
         $(".btn-one").click(function (e) {
           $(".my-form").toggleClass("d-none d-block");
-
-          // Send a HTTP request (DELETE) via a click event
         });
 
+        // Send a HTTP request (DELETE) via a click event
         $(".btn-close").click(function () {
           const cardContainer = this.closest(".card-container");
           const cardId = cardContainer.getAttribute("data-id");
