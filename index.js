@@ -15,11 +15,9 @@ app.post("/submit", (req, res) => {
   let titleValue = req.body.fTitle;
   let descValue = req.body.fDescription;
 
-  let userData = req.body;
-
   storedData.push({
-    title: userData.fTitle,
-    description: userData.fDescription,
+    title: titleValue,
+    description: descValue,
   });
 
   res.render("index.ejs", {
@@ -30,13 +28,24 @@ app.post("/submit", (req, res) => {
 });
 
 app.delete("/delete/:id", (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = parseInt(req.params.id, 10); // allows me to capture dynamic values from the URL path
   if (id >= 0 && id < storedData.length) {
     storedData.splice(id, 1);
     res.json({ success: true });
   } else {
     res.json({ success: false });
   }
+});
+
+// app.put("/update/:id", (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+// });
+
+app.get("/update/:id", (req, res, next) => {
+  res.render("updateFields.ejs", {
+    data: storedData,
+  });
+  next();
 });
 
 app.get("/", (req, res) => {
