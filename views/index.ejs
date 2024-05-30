@@ -82,7 +82,12 @@
       >
         <!-- Delete/Update button -->
         <div class="col-sm-11 d-flex p-0 mt-3 justify-content-end">
-          <img src="images/pen.png" class="image-size" alt="pen icon" />
+          <img
+            src="images/pen.png"
+            class="update image-size"
+            alt="pen icon"
+            data-id="<%= index %>"
+          />
         </div>
         <div class="col-sm-1 mt-3">
           <button
@@ -138,6 +143,21 @@
               if (data.success) {
                 cardContainer.nextElementSibling.remove(); // Remove the card content
                 cardContainer.remove(); // Remove the card container
+              }
+            });
+        });
+
+        // Send a HTTP request (PUT or PATCH) to update, via a click event
+        $(".update").click(function () {
+          const cardContainer = this.closest(".card-container");
+          const cardId = cardContainer.getAttribute("data-id");
+          fetch(`/getEditPage'/${cardId}`, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("it's a success!");
               }
             });
         });
