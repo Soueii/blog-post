@@ -41,11 +41,24 @@ app.delete("/delete/:id", (req, res) => {
 //   const id = parseInt(req.params.id, 10);
 // });
 
-app.get("/update/:id", (req, res, next) => {
-  res.render("updateFields.ejs", {
-    data: storedData,
-  });
-  next();
+app.get("/renderEditPage/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (id >= 0 && id < storedData.length) {
+    res.render("updateFields.ejs", {
+      data: storedData[id],
+    });
+  } else {
+    res.status(404).send("Page not found");
+  }
+});
+
+app.get("/getEditPage/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (id >= 0 && id < storedData.length) {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
+  }
 });
 
 app.get("/", (req, res) => {
