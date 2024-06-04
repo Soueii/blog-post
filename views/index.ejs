@@ -151,7 +151,7 @@
         $(".update").click(function () {
           const cardContainer = this.closest(".card-container");
           const cardId = cardContainer.getAttribute("data-id");
-          fetch(`/getEditPage'/${cardId}`, {
+          fetch(`/getEditPage/${cardId}`, {
             method: "GET",
           })
             .then((response) => response.json())
@@ -159,7 +159,27 @@
               if (data.success) {
                 console.log("it's a success!");
               }
-            });
+            })
+            .catch((error) => console.error("Error is:", error));
+        });
+
+        $(".update").click(function () {
+          const cardContainer = this.closest(".card-container");
+          const cardId = cardContainer.getAttribute("data-id");
+
+          fetch(`/getEditPage/${cardId}`, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                // Redirect to the renderEditPage route if successful
+                window.location.href = `/renderEditPage/${cardId}`;
+              } else {
+                console.log("Failed to fetch edit page data");
+              }
+            })
+            .catch((error) => console.error("Error is:", error));
         });
       });
     </script>
