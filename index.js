@@ -41,6 +41,7 @@ app.delete("/delete/:id", (req, res) => {
 //   const id = parseInt(req.params.id, 10);
 // });
 
+// Renders the content of updateFields file
 app.get("/renderEditPage/:id", (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (id >= 0 && id < storedData.length) {
@@ -52,6 +53,7 @@ app.get("/renderEditPage/:id", (req, res) => {
   }
 });
 
+// Returns a JSON response. Wrote it here since I can't write it in the the /renderEditPage, I can only call res. once here
 app.get("/getEditPage/:id", (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (id >= 0 && id < storedData.length) {
@@ -60,6 +62,37 @@ app.get("/getEditPage/:id", (req, res) => {
     res.json({ success: false });
   }
 });
+
+app.post("/submitEdit/", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  let titleValue = req.body.fTitle;
+  let descValue = req.body.fDescription;
+
+  storedData[id] = {
+    title: titleValue,
+    description: descValue,
+  };
+
+  res.render("index.ejs", {
+    data: storedData,
+  });
+});
+
+// app.put("/updateValues/:id", (req, res) => {
+//   let titleValue = req.body.fTitle;
+//   let descValue = req.body.fDescription;
+
+//   storedData.push({
+//     title: titleValue,
+//     description: descValue,
+//   });
+
+//   res.render("index.ejs", {
+//     title: titleValue,
+//     description: descValue,
+//     data: storedData,
+//   });
+// });
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
