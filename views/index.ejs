@@ -163,6 +163,7 @@
             .catch((error) => console.error("Error is:", error));
         });
 
+        // Redirecting with another GET method
         $(".update").click(function () {
           const cardContainer = this.closest(".card-container");
           const cardId = cardContainer.getAttribute("data-id");
