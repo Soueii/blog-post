@@ -19,7 +19,7 @@
       action="/submitEdit"
       method="POST"
     >
-      <input type="hidden" name="id" value="<%= locals.id %>" />
+      <input type="hidden" name="fID" value="<%= data.id %>" />
 
       <!-- Add title -->
       <div class="form-group my-4">
@@ -75,37 +75,5 @@
     ></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <script>
-      // $(document).ready(function () {
-      //   $("#editForm").on("submit", function (e) {
-      //     e.preventDefault(); // Prevent the form from submitting the default way
-
-      //     const id = $('input[name="id"]').val();
-      //     const title = $('input[name="fTitle"]').val();
-      //     const description = $('textarea[name="fDescription"]').val();
-
-      //     $.ajax({
-      //       url: `/submitEdit/${id}`,
-      //       method: "PUT",
-      //       contentType: "application/json",
-      //       data: JSON.stringify({
-      //         fTitle: title,
-      //         fDescription: description,
-      //       }),
-      //       success: function (response) {
-      //         if (response.success) {
-      //           window.location.href = "/"; // Redirect to the home page or wherever
-      //         } else {
-      //           alert("Failed to update the post");
-      //         }
-      //       },
-      //       error: function (error) {
-      //         console.error("Error:", error);
-      //       },
-      //     });
-      //   });
-      // });
-    </script>
   </body>
 </html>
