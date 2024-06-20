@@ -18,6 +18,7 @@ app.post("/submit", (req, res) => {
   storedData.push({
     title: titleValue,
     description: descValue,
+    id: storedData.length,
   });
 
   res.render("index.ejs", {
@@ -36,10 +37,6 @@ app.delete("/delete/:id", (req, res) => {
     res.json({ success: false });
   }
 });
-
-// app.put("/update/:id", (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-// });
 
 // Renders the content of updateFields file
 app.get("/renderEditPage/:id", (req, res) => {
@@ -64,35 +61,25 @@ app.get("/getEditPage/:id", (req, res) => {
 });
 
 app.post("/submitEdit/", (req, res) => {
-  const id = parseInt(req.params.id, 10);
   let titleValue = req.body.fTitle;
   let descValue = req.body.fDescription;
-
-  storedData[id] = {
+  let idValue = req.body.fID;
+  let newObject = {
     title: titleValue,
-    description: descValue,
+    desc: descValue,
+    id: idValue,
   };
+  // Using findIndex to see what the index of the current element with its' specific ID is
+  let index = storedData.findIndex(function (blog) {
+    return blog.id == parseInt(req.params.idValue, 10);
+  });
+
+  storedData.splice(index, 1, newObject); // Here I delete the blog with the specific index and I assign the new values using the newObject
 
   res.render("index.ejs", {
     data: storedData,
   });
 });
-
-// app.put("/updateValues/:id", (req, res) => {
-//   let titleValue = req.body.fTitle;
-//   let descValue = req.body.fDescription;
-
-//   storedData.push({
-//     title: titleValue,
-//     description: descValue,
-//   });
-
-//   res.render("index.ejs", {
-//     title: titleValue,
-//     description: descValue,
-//     data: storedData,
-//   });
-// });
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
