@@ -63,18 +63,37 @@ app.get("/getEditPage/:id", (req, res) => {
 app.post("/submitEdit/", (req, res) => {
   let titleValue = req.body.fTitle;
   let descValue = req.body.fDescription;
-  let idValue = req.body.fID;
+  let idValue = +req.body.fID; // Using + in front of req.body to convert it to a number type
+  // console.log(typeof idValue);
+
+  // console.log(titleValue);
+  // console.log(descValue);
+  // console.log(idValue);
+
   let newObject = {
     title: titleValue,
-    desc: descValue,
+    description: descValue,
     id: idValue,
   };
+
   // Using findIndex to see what the index of the current element with its' specific ID is
   let index = storedData.findIndex(function (blog) {
-    return blog.id == parseInt(req.params.idValue, 10);
+    // console.log(blog);
+    console.log("idValue: ", req.params.idValue);
+    return blog.id == idValue;
   });
 
+  // console.log(storedData);
+  // console.log(index);
+  // console.log(idValue);
+
+  // console.log(storedData);
+  // console.log(typeof storedData[2].id);
+
   storedData.splice(index, 1, newObject); // Here I delete the blog with the specific index and I assign the new values using the newObject
+
+  // console.log(storedData);
+  // console.log(typeof storedData[2].id);
 
   res.render("index.ejs", {
     data: storedData,
