@@ -11,6 +11,13 @@ app.use(express.static("public"));
 
 let storedData = [];
 
+function truncateString(str, num) {
+  if (str.length <= num) {
+    return str;
+  }
+  return str.slice(0, num) + "...";
+}
+
 app.post("/submit", (req, res) => {
   let titleValue = req.body.fTitle;
   let descValue = req.body.fDescription;
@@ -22,9 +29,12 @@ app.post("/submit", (req, res) => {
   });
 
   res.render("index.ejs", {
-    title: titleValue,
-    description: descValue,
-    data: storedData,
+    // Using the map() method to call the truncateString() function on every element in the storedData array
+    data: storedData.map((item) => ({
+      ...item,
+      title: truncateString(item.title, 20),
+      description: truncateString(item.description, 20),
+    })),
   });
 });
 
@@ -79,7 +89,11 @@ app.post("/submitEdit/", (req, res) => {
   storedData.splice(index, 1, newObject); // Here I delete the blog with the specific index and I assign the new values using the newObject
 
   res.render("index.ejs", {
-    data: storedData,
+    data: storedData.map((item) => ({
+      ...item,
+      title: truncateString(item.title, 20),
+      description: truncateString(item.description, 20),
+    })),
   });
 });
 
