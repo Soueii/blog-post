@@ -64,11 +64,6 @@ app.post("/submitEdit/", (req, res) => {
   let titleValue = req.body.fTitle;
   let descValue = req.body.fDescription;
   let idValue = +req.body.fID; // Using + in front of req.body to convert it to a number type
-  // console.log(typeof idValue);
-
-  // console.log(titleValue);
-  // console.log(descValue);
-  // console.log(idValue);
 
   let newObject = {
     title: titleValue,
@@ -76,28 +71,28 @@ app.post("/submitEdit/", (req, res) => {
     id: idValue,
   };
 
-  // Using findIndex to see what the index of the current element with its' specific ID is
+  // Using findIndex to see what the index of the current eleme`nt with its' specific ID is
   let index = storedData.findIndex(function (blog) {
-    // console.log(blog);
-    console.log("idValue: ", req.params.idValue);
     return blog.id == idValue;
   });
 
-  // console.log(storedData);
-  // console.log(index);
-  // console.log(idValue);
-
-  // console.log(storedData);
-  // console.log(typeof storedData[2].id);
-
   storedData.splice(index, 1, newObject); // Here I delete the blog with the specific index and I assign the new values using the newObject
-
-  // console.log(storedData);
-  // console.log(typeof storedData[2].id);
 
   res.render("index.ejs", {
     data: storedData,
   });
+});
+
+// Rendering the detailed page for every individual card
+app.get("/detailView/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (id >= 0 && id < storedData.length) {
+    res.render("detailedView.ejs", {
+      data: storedData[id],
+    });
+  } else {
+    res.status(404).send("Page not found");
+  }
 });
 
 app.get("/", (req, res) => {
