@@ -14,12 +14,12 @@
   </head>
 
   <body>
-    <h1 class="text-center">Logo</h1>
+    <h1 class="text-center text-light-emphasis">Blog Post</h1>
 
     <%- include("partials/navbar.ejs") %>
 
     <div class="box-1">
-      <div class="btn btn-one mt-3">
+      <div class="btn btn-one btn-outline-primary mt-3">
         <span>Add Post</span>
       </div>
     </div>
@@ -31,11 +31,11 @@
     >
       <!-- Add title -->
       <div class="form-group my-4">
-        <label for="formTitle">Add Title</label>
+        <label for="formTitle" class="text-field">Add Title</label>
         <input
           type="text"
           name="fTitle"
-          class="form-control-sm"
+          class="form-control-sm field-color"
           id="formTitle"
           placeholder="Title"
           required
@@ -44,19 +44,22 @@
 
       <!-- Add description -->
       <div class="form-group">
-        <label for="formDescription">Add Description</label>
+        <label for="formDescription" class="text-field">Add Description</label>
         <textarea
-          class="form-control"
+          class="form-control field-color"
           id="formDescription"
           rows="3"
           name="fDescription"
+          placeholder="Write your description"
           required
         ></textarea>
       </div>
 
       <!-- Upload image -->
       <div class="form-group mt-3 d-flex w-50">
-        <label for="exampleFormControlFile1">Add image</label>
+        <label for="exampleFormControlFile1" class="text-field">
+          Add image
+        </label>
         <input
           type="file"
           class="form-control-file"
@@ -75,13 +78,25 @@
 
     <!-- Card -->
     <% if(locals.data) { %> <% locals.data.forEach((element, index) => { %>
-    <div class="card-post container card my-3" style="max-width: 540px">
+    <div
+      class="card-post container card my-3"
+      data-id="<%= index %>"
+      style="max-width: 540px"
+    >
       <div
         class="container row justify-content-center card-container"
         data-id="<%= index %>"
       >
-        <!-- Delete/Update button -->
-        <div class="col-sm-11 d-flex p-0 mt-3 justify-content-end">
+        <!-- Details/Delete/Update buttons -->
+        <div class="details col-sm-10 d-flex p-0 mt-3 justify-content-end">
+          <img
+            src="images/details.png"
+            class="detailed-page image-size"
+            alt="a detailed page"
+          />
+        </div>
+
+        <div class="updates col-sm-1 d-flex p-0 mt-3 justify-content-end">
           <img
             src="images/pen.png"
             class="update image-size"
@@ -107,7 +122,7 @@
             <h5 class="card-title"><%= element.title %></h5>
             <p class="card-text"><%= element.description %></p>
             <p class="card-text">
-              <small class="text-body-secondary">Last updated 3 mins ago</small>
+              <small class="text-white-50">Last updated 3 mins ago</small>
             </p>
           </div>
         </div>
@@ -147,7 +162,7 @@
             });
         });
 
-        // Send a HTTP request (PUT or PATCH) to update, via a click event
+        // Send a HTTP request to update, via a click event
         $(".update").click(function () {
           const cardContainer = this.closest(".card-container");
           const cardId = cardContainer.getAttribute("data-id");
@@ -181,6 +196,13 @@
               }
             })
             .catch((error) => console.error("Error is:", error));
+        });
+
+        // Redirect to the detailed view page when a card is clicked
+        $(".detailed-page").click(function () {
+          const cardContainer = this.closest(".card-container");
+          const cardId = cardContainer.getAttribute("data-id");
+          window.location.href = `/detailView/${cardId}`;
         });
       });
     </script>

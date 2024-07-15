@@ -23,11 +23,11 @@
 
       <!-- Add title -->
       <div class="form-group my-4">
-        <label for="formTitle">Add Title</label>
+        <label for="formTitle" class="text-field">Add Title</label>
         <input
           type="text"
           name="fTitle"
-          class="form-control-sm"
+          class="form-control-sm field-color"
           id="formTitle"
           placeholder="Title"
           value="<%= data.title %>"
@@ -37,12 +37,13 @@
 
       <!-- Add description -->
       <div class="form-group">
-        <label for="formDescription">Add Description</label>
+        <label for="formDescription" class="text-field">Add Description</label>
         <textarea
-          class="form-control"
+          class="form-control field-color"
           id="formDescription"
           rows="3"
           name="fDescription"
+          placeholder="Write your description"
           required
         >
 <%= data.description %></textarea
@@ -51,7 +52,9 @@
 
       <!-- Upload image -->
       <div class="form-group mt-3 d-flex w-50">
-        <label for="exampleFormControlFile1">Add image</label>
+        <label for="exampleFormControlFile1" class="text-field">
+          Add image
+        </label>
         <input
           type="file"
           class="form-control-file"
