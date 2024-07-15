@@ -1,3 +1,17 @@
+body {
+  background-color: #272727;
+}
+
+.navbar-line {
+  background-color: rgb(64, 106, 131);
+  border-radius: 15px;
+}
+
+.container-fluid {
+  padding: 0;
+  background-color: #272727;
+}
+
 div[class*="box"] {
   height: 33.33%;
   width: 50%;
@@ -8,60 +22,14 @@ div[class*="box"] {
 }
 
 .btn {
-  line-height: 50px;
+  line-height: 40px;
   height: 50px;
   text-align: center;
-  width: 150px;
   cursor: pointer;
 }
 
 .btn-one {
-  color: black;
-  transition: all 0.3s;
-  position: relative;
-}
-.btn-one span {
-  transition: all 0.3s;
-}
-.btn-one::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: all 0.3s;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-top-color: rgba(66, 56, 56, 0.5);
-  border-bottom-color: rgba(66, 56, 56, 0.5);
-  transform: scale(0.1, 1);
-}
-.btn-one:hover span {
-  letter-spacing: 2px;
-}
-.btn-one:hover::before {
-  opacity: 1;
-  transform: scale(1, 1);
-}
-.btn-one::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.btn-one:hover::after {
-  opacity: 0;
-  transform: scale(0.1, 1);
+  width: 150px;
 }
 
 .image-size {
@@ -69,6 +37,36 @@ div[class*="box"] {
   width: 20px;
 }
 
+.nav-link {
+  color: white;
+}
+
 .image-size:hover {
   cursor: pointer;
+}
+
+.navbar {
+  padding: 0;
+}
+
+.card-post {
+  background-color: rgb(64, 106, 131);
+  color: white;
+}
+
+.details,
+.updates {
+  overflow: hidden;
+}
+
+.field-color {
+  background-color: rgb(64, 106, 131);
+}
+
+.text-field {
+  color: white;
+}
+
+.details-container {
+  margin: 0;
 }
